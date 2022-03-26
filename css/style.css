@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: #f4f4f4;
+  background-color: #fff;
   min-height: 100vh;
   font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
@@ -135,8 +135,8 @@ ul{
 }
 .see-text:hover{
   color: #be123c;
-
 }
+
 .card-img{
   width: 100%;
   height: 250px;
@@ -144,6 +144,9 @@ ul{
 .heart-btn{
   background: rgba(243, 244, 246, 0.5);
   border-radius: 50%;
+}
+.heart-btn:active .bxs-heart{
+  color: #be123c;
 }
 .card-inner{
   position: absolute;
@@ -157,6 +160,7 @@ ul{
 .list__item{
   padding: 0 20px;
   margin-bottom: 30px;
+  position: relative;
 }
 .bxs-heart{
   font-size: 22px;
@@ -240,7 +244,124 @@ ul{
   font-weight: 600;
   color: #be123c;
 }
+.modal-content{
+  left: -200px;
+  top: 80px;
+  width: 60vw;
+  height: 70vh;
+}
+.modal-img{
+  width: 40%;
+}
 
 .carousel-control-prev{
   width: 8%;
+}
+.bx-chevron-left{
+  position: absolute;
+  left: 50px;
+  bottom: -50%;
+  font-size: 70px;
+}
+.bx-chevron-right{
+  position: absolute;
+  right: 50px;
+  bottom: -50%;
+  font-size: 70px;
+}
+.modal-item{
+  width: 100%;
+}
+.modal-title{
+  color: #be123c;
+}
+.wishlist li{
+  width: 100%;
+}
+.carousel-indicators{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: end;
+}
+.slider-btn{
+  height: 40px !important;
+  text-indent: 0px !important;
+  border: none !important;
+  background-color: transparent !important;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+  top: -250px;
+  right: -180px;
+}
+.slider-btn::before{
+  content: "";
+  width: 20px;
+  height: 4px;
+  border-radius: 10px;
+  background-color: #fff;
+  display: inline-block;
+  position: absolute;
+  left: -60%;
+  top: 40%;
+}
+.search-input{
+  width: 20%;
+}
+
+.category-select{
+  width: auto;
+}
+.modal-ul{
+  background-color: #fff;
+  width: 800px;
+  height: 400px;
+  position: absolute;
+  top: -500px;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.modal-heart{
+  position: absolute;
+  left: 280px;
+}
+.modal-usa{
+  font-size: 20px;
+}
+.modal-category{
+  font-size: 18px;
+}
+.modal-watch{
+  padding: 7px 15px;
+  text-transform: capitalize;
+  font-size: 15px;
+  color: #fff;
+}
+.modal-watch:hover{
+  color: #fff;
+}
+.modal-exit{
+  background-color: #be123c;
+  padding: 10px;
+  line-height: 10px;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+.modal-exit:hover{
+  background-color: #7a0925;
+}
+.modal-bx{
+  font-size: 35px;
+  color: #fff;
+}
+.filter-wrapper{
+  background-color: #be123d09;
 }
