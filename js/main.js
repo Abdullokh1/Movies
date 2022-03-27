@@ -7,6 +7,8 @@ const Search = document.getElementById('SearchInput');
 const select = document.getElementById('selectCategory');
 const Year = document.getElementById('selectYear');
 const Movie = document.getElementById('movie');
+const All = document.getElementById('AllList');
+
 
 
 // FIRST SECTION ADDED -----
@@ -327,10 +329,13 @@ function filter(e){
 // SEARCH CATEGORY FILTERS ------
 
 movies.forEach((item,index) =>{
-  if (index < 20){
-    let option = document.createElement('option');
-    option.innerText = item.categories;
-    select.appendChild(option);
+  if (index < 10){
+    let cat = item.categories;
+    cat.forEach(el =>{
+      let option = document.createElement('option');
+      option.innerText = el;
+      select.append(option);
+    })
   }
 })
 
@@ -409,7 +414,6 @@ Form.addEventListener('submit', (e) =>{
 let num = 0;
 let num2 = 0;
 let num3 = 0;
-
 
 RightSlide.forEach((item, index) =>{
 
@@ -560,4 +564,67 @@ LeftSlide.forEach((item, index) =>{
 })
 
 
+movies.forEach((item, index) =>{
+  if (index > 200 && index < 229){
+    let li = document.createElement('li');
+    li.className = 'list__item col-3';
+    li.innerHTML = `
+    <div class="item-inner">
+    <div class="img-wrapper">
+      <img class="card-img" src="${item.youtubePoster}" alt="card-img-1">
+    </div>
+    <div class="series-wrapper d-flex justify-content-between align-items-center">
+      <p class="series-text m-0">Tv series</p>
+      <button class="heart-btn" onclick = "Heart('${item.imdbId}')"><i class='bx bxs-heart'></i></button>
+    </div>
+    <div class='d-flex justify-content-between'>
+    <span class="card-usa">${item.language} <span>${item.year}</span> - Current</span>
 
+    <button class="btn modal-btn mt-2"  data-bs-toggle="modal" data-bs-target="#exampleModal${id}">More</button>
+      <div class="modal fade" id="exampleModal${id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Movie Description</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class='d-flex'>
+              <img class="card-img modal-img me-5" src="${item.youtubePoster}" alt="card-img-1">
+              ${item.summary}
+            </div>
+             <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+             <span class="ms-2">${item.runtime}</span>
+             <i class='bx bxs-star'></i>
+             <span class='me-3'>${item.imdbRating}</span>
+             <p class="card-usa">${item.categories}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="card-stranger">${item.title}</h3>
+    <div class="d-flex justify-content-between ">
+      <div>
+        <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+        <span class="ms-2">${item.runtime}</span>
+      </div>
+      <div>
+        <i class='bx bxs-star'></i>
+        <span>${item.imdbRating}</span>
+      </div>
+      </div>
+      <p class="card-usa">${item.categories}</p>
+  </div>
+    `;
+    id++;
+    All.appendChild(li);
+  }
+  
+})
+
+const third = document.getElementById('third');
+
+third.addEventListener('click', () =>{
+  All.innerHTML = '';
+})
