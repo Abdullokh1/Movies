@@ -205,6 +205,9 @@ ul{
   color: #111827;
   font-weight: 700;
 }
+.footer-link:hover{
+  color: #be123c;
+}
 .footer-copy{
   font-weight: 700;
   color: #6B7280;
@@ -257,17 +260,27 @@ ul{
 .carousel-control-prev{
   width: 8%;
 }
+.slide-wrapper{
+  overflow: hidden;
+}
+.box{
+  position: relative;
+  width: 100%;
+}
+.slide-btn{
+  height: 250px;
+}
 .bx-chevron-left{
-  position: absolute;
-  left: 50px;
-  bottom: -50%;
   font-size: 70px;
+  position: absolute;
+  left: -70px;
+  top: 25%;
 }
 .bx-chevron-right{
   position: absolute;
-  right: 50px;
-  bottom: -50%;
   font-size: 70px;
+  right: -70px;
+  top: 25%;
 }
 .modal-item{
   width: 100%;

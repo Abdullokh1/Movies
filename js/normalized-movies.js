@@ -60096,7 +60096,7 @@ var movies = [
     "runtime": 97,
     "language": "English",
     "youtubeId": "lw8rBxYC1Dw",
-    "youtubePosterMax": "http://i3.ytimg.com/vi/lw8rBxYC1Dw/maxresdefault.jpg",
+    "youtubePosterMax": "http://i3.ytimg.com/vi/lw8rBxYC1Dw/maxrePsdefault.jpg",
     "youtubePoster": "http://i3.ytimg.com/vi/lw8rBxYC1Dw/hqdefault.jpg",
     "imdbPage": "https://www.imdb.com/title/tt2230358"
   },
