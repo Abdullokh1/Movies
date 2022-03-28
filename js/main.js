@@ -229,8 +229,7 @@ temp.forEach((item, index) =>{
 let heart = document.querySelectorAll('.heart-btn');
 heart.forEach(item =>{
    item.addEventListener('click', (e) =>{
-     let es = e.target;
-     es.style.color = '#be123c';
+     e.target.style.color = '#be123c';
 
    })
 })
@@ -272,7 +271,6 @@ function Heart(id){
 })
 
 
-console.log(nu);
 
 const removeBtn = document.querySelectorAll('.remove-btn');
 
