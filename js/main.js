@@ -3,11 +3,19 @@ const Arrival = document.getElementById('ArriveList');
 const Exclusive = document.getElementById('exclusiveList');
 const Wishlist = document.getElementById('wishlist');
 const Form = document.getElementById('Form');
+const FilterForm = document.getElementById('filterForm');
 const Search = document.getElementById('SearchInput');
 const select = document.getElementById('selectCategory');
-const Year = document.getElementById('selectYear');
 const Movie = document.getElementById('movie');
 const All = document.getElementById('AllList');
+const RightSlide = document.querySelectorAll('.rightSlide');
+const LeftSlide = document.querySelectorAll('.leftSlide');
+const YearFrom = document.getElementById('YearFrom');
+const YearTo = document.getElementById('YearTo');
+let Result = document.getElementById('FilterResult');
+
+
+
 
 
 
@@ -218,6 +226,14 @@ temp.forEach((item, index) =>{
 
 // WISHLIST PART --------
 
+let heart = document.querySelectorAll('.heart-btn');
+heart.forEach(item =>{
+   item.addEventListener('click', (e) =>{
+     let es = e.target;
+     es.style.color = '#be123c';
+
+   })
+})
 
 function Heart(id){
   movies.forEach((item,index) =>{
@@ -252,9 +268,11 @@ function Heart(id){
     </div>
     `;
       Wishlist.appendChild(li);
-
     }
 })
+
+
+console.log(nu);
 
 const removeBtn = document.querySelectorAll('.remove-btn');
 
@@ -268,65 +286,6 @@ removeBtn.forEach(item => {
 
 // FILTER PART ------
 
-const RightSlide = document.querySelectorAll('.rightSlide');
-const LeftSlide = document.querySelectorAll('.leftSlide');
-
-
-const Title = document.getElementById('MovieTitle');
-const secondTitle = document.getElementById('secondTitle');
-const Hero = document.getElementById('hero');
-
-Search.addEventListener('keyup', filter);
-
-function filter(e){
-  let value = e.target.value.toLowerCase();
-  let listItem = ElList.getElementsByTagName('li');
-  let secondList = Arrival.getElementsByTagName('li');
-  let thirdList = Exclusive.getElementsByTagName('li');
-
-
-
-  for (let i = 0; i < listItem.length; i++){
-    let itemName = listItem[i].innerText;
-    if (itemName.toLocaleLowerCase().indexOf(value) != -1){
-      secondTitle.className = 'd-flex justify-content-between mb-5';
-      listItem[i].style.display = 'flex';
-    }
-    else{
-      listItem[i].style.display = 'none';
-      secondTitle.className = 'd-none';
-      ElList.style.width = '1200px';
-    }
-  }
-
-  for (let i = 0; i < secondList.length; i++){
-    let itemName = secondList[i].innerText;
-    if (itemName.toLocaleLowerCase().indexOf(value) != -1){
-      Title.className = 'd-flex justify-content-between mb-5';
-      secondList[i].style.display = 'flex';
-    }
-    else{
-      secondList[i].style.display = 'none';
-      Title.className = 'd-none';
-      secondList.style.width = '1200px';
-    }
-  }
-
-  for (let i = 0; i < thirdList.length; i++){
-    let itemName = thirdList[i].innerText;
-    if (itemName.toLocaleLowerCase().indexOf(value) != -1){
-      Title.className = 'd-flex justify-content-between mb-5';
-      thirdList[i].style.display = 'flex';
-    }
-    else{
-      thirdList[i].style.display = 'none';
-      Title.className = 'd-none';
-    }
-  }
-}
-
-
-// SEARCH CATEGORY FILTERS ------
 
 movies.forEach((item,index) =>{
   if (index < 10){
@@ -339,16 +298,84 @@ movies.forEach((item,index) =>{
   }
 })
 
-let count = 0;
-movies.forEach((item,index) =>{
-  if (item.year > 2000 && item.year <= 2018 && count < 15){
-    let option = document.createElement('option');
-    option.textContent = item.year;
-    Year.appendChild(option);
-    count++
-  }
-})
+
+
+
+FilterForm.addEventListener('submit', (e) =>{
+ e.preventDefault();
+ let value = Search.value.toLowerCase();
+ let from = YearFrom.value;
+ let to = YearTo.value;
+ 
+ Result.innerHTML = '';
+ movies.forEach(el =>{
+   let title = el.title.toLowerCase();
+   if (title.indexOf(value) != -1 && el.year >= from && el.year <= to){
+        let li = document.createElement('li');
+        li.className = 'list__item col-3';
+        li.innerHTML = `
+        <div class="item-inner">
+        <div class="img-wrapper">
+          <img class="card-img" src="${el.youtubePoster}" alt="card-img-1">
+        </div>
+        <div class="series-wrapper d-flex justify-content-between align-items-center">
+          <p class="series-text m-0">Tv series</p>
+          <button class="heart-btn" onclick = "Heart('${el.imdbId}')"><i class='bx bxs-heart'></i></button>
+        </div>
+        <div class='d-flex justify-content-between'>
+        <span class="card-usa">${el.language} <span>${el.year}</span> - Current</span>
     
+        <button class="btn modal-btn mt-2"  data-bs-toggle="modal" data-bs-target="#exampleModal${id}">More</button>
+          <div class="modal fade" id="exampleModal${id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Movie Description</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class='d-flex'>
+                  <img class="card-img modal-img me-5" src="${el.youtubePoster}" alt="card-img-1">
+                  ${el.summary}
+                </div>
+                 <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+                 <span class="ms-2">${el.runtime}</span>
+                 <i class='bx bxs-star'></i>
+                 <span class='me-3'>${el.imdbRating}</span>
+                 <p class="card-usa">${el.categories}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 class="card-stranger">${el.title}</h3>
+        <div class="d-flex justify-content-between ">
+          <div>
+            <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+            <span class="ms-2">${el.runtime}</span>
+          </div>
+          <div>
+            <i class='bx bxs-star'></i>
+            <span>${el.imdbRating}</span>
+          </div>
+          </div>
+          <p class="card-usa">${el.categories}</p>
+      </div>
+        `;
+        id++;
+      Result.appendChild(li);
+    }
+  })
+  Search.value = '';
+  YearFrom.value = '';
+  YearTo.value = '';
+
+})
+
+
+
+
+
 
 // HERO SEARCH ------
 
@@ -357,54 +384,87 @@ const modalUl = document.getElementById('modalUl');
 
 Form.addEventListener('submit', (e) =>{
   e.preventDefault();
+
+  modalUl.innerHTML = `
+  <button class='modal-exit'><i class='bx modal-bx bx-x'></i></button>
+  `;
+
   let value = HeroSearch.value.toLowerCase();
   movies.forEach(item =>{
-    if (value == item.title.toLowerCase()){
-      modalUl.innerHTML = `
-      <button class='modal-exit'><i class='bx modal-bx bx-x'></i></button>
-      `;
-      let li = document.createElement('li');
-      li.className = ('list-item');
-      li.innerHTML = `
-      <div class="item-inner d-flex">
+    let title = item.title.toLowerCase();
+    if (title.indexOf(value) != -1){
+      
+        let li = document.createElement('li');
+        li.className = 'list__item col-4';
+        li.innerHTML = `
+        <div class="item-inner">
         <div class="img-wrapper">
           <img class="card-img" src="${item.youtubePoster}" alt="card-img-1">
-        </div>
+          </div>
         <div class="series-wrapper d-flex justify-content-between align-items-center">
           <p class="series-text m-0">Tv series</p>
-          <button class="heart-btn mt-2 modal-heart" onclick = "Heart('${item.imdbId}')"><i class='bx bxs-heart'></i></button>
+          <button class="heart-btn" onclick = "Heart('${item.imdbId}')"><i class='bx bxs-heart'></i></button>
         </div>
-        <div class='ms-4'>
-        <span class="card-usa modal-usa">${item.language} <span>${item.year}</span> - Current</span>
+        <div class='d-flex justify-content-between'>
+        <span class="card-usa">${item.language} <span>${item.year}</span> - Current</span>
+          <button type="button" class="btn modal-btn mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal${id}">More</button>
+          
+          <div class="modal fade" id="exampleModal${id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Movie Description</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class='d-flex'>
+             <img class="card-img modal-img me-5" src="${item.youtubePoster}" alt="card-img-1">
+              ${item.summary}
+             </div>
+             <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+             <span class="ms-2">${item.runtime}</span>
+             <i class='bx bxs-star'></i>
+             <span class='me-3'>${item.imdbRating}</span>
+             <p class="card-usa">${item.categories}</p>
+             
+            </div>
+           </div>
+          </div>
+          </div>
+         </div>
         <h3 class="card-stranger">${item.title}</h3>
-        <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
-        <span class="ms-2">${item.runtime}</span>
-        <i class='bx bxs-star'></i>
-        <span>${item.imdbRating}</span>
-        <div>
-        <p class="card-usa modal-category">${item.categories}</p>
+        <div class="d-flex justify-content-between ">
+          <div>
+            <img src="img/card-small-img.svg" alt="card-img" width="35" height="17">
+            <span class="ms-2">${item.runtime}</span>
+          </div>
+          <div>
+            <i class='bx bxs-star'></i>
+            <span>${item.imdbRating}</span>
+          </div>
+          </div>
+        <p class="card-usa">${item.categories}</p>
         </div>
-        <a class='hero-watch-link modal-watch' href='#'>Watch Movie</a>
-        </div>
-        
-      `;
-      modalUl.appendChild(li);
+        `;
+        id++;
     
-      const ModalExit = document.querySelector('.modal-exit');
-     
-      modalUl.style.top = '80px';
-      modalUl.style.transition = 'all 0.5s ease';
-     
-      ModalExit.addEventListener('click', ()=>{
-        modalUl.style.top = '-500px';
-        li.innerHTML = '';
-        modalUl.style.transition = 'none';
-      
-      })
-    }
-  })
-  HeroSearch.value = '';
+        modalUl.appendChild(li);
 
+        
+        
+        modalUl.style.top = '80px';
+        modalUl.style.transition = 'all 0.5s ease';
+        
+        const ModalExit = document.querySelector('.modal-exit');
+        ModalExit.addEventListener('click', ()=>{
+          modalUl.style.top = '-600px';
+          li.innerHTML = '';
+          modalUl.style.transition = 'none';
+        })
+
+    }
+    HeroSearch.value = '';
+  })
 });
 
 
@@ -488,9 +548,6 @@ RightSlide.forEach((item, index) =>{
 }
 })
 
-
-
-
 LeftSlide.forEach((item, index) =>{
   if (index == 0){
     item.addEventListener('click', ()=>{
@@ -563,7 +620,6 @@ LeftSlide.forEach((item, index) =>{
   }
 })
 
-
 movies.forEach((item, index) =>{
   if (index > 200 && index < 229){
     let li = document.createElement('li');
@@ -621,10 +677,4 @@ movies.forEach((item, index) =>{
     All.appendChild(li);
   }
   
-})
-
-const third = document.getElementById('third');
-
-third.addEventListener('click', () =>{
-  All.innerHTML = '';
 })
