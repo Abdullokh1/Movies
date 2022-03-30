@@ -147,9 +147,6 @@ ul{
   background: rgba(243, 244, 246, 0.5);
   border-radius: 50%;
 }
-/* .heart-btn:active .bxs-heart{
-  color: #be123c;
-} */
 .card-inner{
   position: absolute;
   top: 0;
